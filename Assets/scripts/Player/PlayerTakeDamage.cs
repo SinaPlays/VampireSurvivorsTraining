@@ -1,0 +1,35 @@
+using System;
+using UnityEngine;
+using static UnityEditor.Searcher.SearcherWindow.Alignment;
+
+public class PlayerTakeDamage : MonoBehaviour
+{
+    [SerializeField] float maxHealth;
+    [SerializeField] float Health;
+    float damage;
+    [SerializeField] float DamageMultiplier;
+    
+    private void Start()
+    {
+        Health = maxHealth;
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        damage = DamageMultiplier * Time.deltaTime;
+        if (collision.CompareTag("Enemy"))
+            PlayerGetDamage(damage);
+    }
+    void PlayerGetDamage(float SomeDamage)
+    {
+        Health -= SomeDamage;
+        if (Health <= 0)
+        {
+            PlayerDie();
+        }
+    }
+    void PlayerDie()
+    {
+        gameObject.SetActive(false);
+        Debug.Log("Player Died");
+    }
+}
