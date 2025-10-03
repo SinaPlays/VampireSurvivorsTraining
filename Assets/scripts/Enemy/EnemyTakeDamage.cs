@@ -12,7 +12,7 @@ public class EnemyTakeDamage : MonoBehaviour
     }
     public void EnemyGetDamage(float SomeDamage)
     {
-        if (gameObject.tag == "Player") { return; } // Prevents player from damaging enemy
+        if (gameObject.tag == "Player") { return; } 
         Health -= SomeDamage;
         if (Health <= 0)
         {
