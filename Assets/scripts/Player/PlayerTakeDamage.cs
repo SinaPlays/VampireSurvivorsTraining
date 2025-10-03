@@ -16,7 +16,7 @@ public class PlayerTakeDamage : MonoBehaviour
     private void OnTriggerStay2D(Collider2D collision)
     {
         damage = DamageMultiplier * Time.deltaTime;
-        if (collision.CompareTag("Enemy"))
+        if (collision.GetComponent<EnemyTakeDamage>())
             PlayerGetDamage(damage);
     }
     void PlayerGetDamage(float SomeDamage)
