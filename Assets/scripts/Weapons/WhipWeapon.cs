@@ -9,7 +9,7 @@ public class WhipWeapon : MonoBehaviour
     GameObject player;
     Vector3 WhipPosition;
     [SerializeField] float WhipTimer;
-    
+
     [SerializeField] float WhipDuration = 0.3f;
     [SerializeField] float WhipCooldown = 1;
 
@@ -39,25 +39,26 @@ public class WhipWeapon : MonoBehaviour
     }
     private void WhipLogic()
     {
-        foreach (var sprite in WhipSprites)
+        WhipTimer += Time.deltaTime;
+
+        if (WhipTimer >= WhipCooldown)
         {
-            sprite.enabled = true;
+            WhipTimer = 0;
+
+            foreach (var sprite in WhipSprites)
+            {
+                sprite.enabled = true;
+            }
             WhipCollider.enabled = true;
         }
-        WhipTimer += Time.deltaTime;
+
         if (WhipTimer >= WhipDuration)
         {
             foreach (var sprite in WhipSprites)
             {
                 sprite.enabled = false;
-                WhipCollider.enabled = false;
-                if (WhipTimer >= WhipCooldown)
-                {
-                    WhipTimer = 0;
-                }
             }
-            
+            WhipCollider.enabled = false;
         }
     }
-
 }
