@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class EnemyToPlayer2 : MonoBehaviour
 {
-    [SerializeField] GameObject player;
+    GameObject player;
     [SerializeField] private float teleportDistance = 5f;
     [SerializeField] private float TPcooldown = 0.5f;
 
@@ -10,7 +10,16 @@ public class EnemyToPlayer2 : MonoBehaviour
 
     private void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         teleportTimer = 0f;
+    }
+    private void OnEnable()
+    {
+        GameManager.activeEnemies2.Add(this);
+    }
+    private void OnDisable()
+    {
+        GameManager.activeEnemies2.Remove(this);
     }
     public void UpdateEnemy()
     {

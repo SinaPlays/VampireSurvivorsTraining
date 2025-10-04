@@ -20,7 +20,7 @@ public class WhipWeapon : MonoBehaviour
         WhipSprites = GetComponentsInChildren<SpriteRenderer>();
         WhipCollider = GetComponent<EdgeCollider2D>();
     }
-    private void Update()
+    public void UpdateWhip()
     {
         WhipPositionSet();
         WhipLogic();

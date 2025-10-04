@@ -29,7 +29,7 @@ public class PlayerTakeDamage : MonoBehaviour
     }
     void PlayerDie()
     {
+        GameManager.instance.ChangeState(GameManager.GameState.GameOver);
         gameObject.SetActive(false);
-        Debug.Log("Player Died");
     }
 }

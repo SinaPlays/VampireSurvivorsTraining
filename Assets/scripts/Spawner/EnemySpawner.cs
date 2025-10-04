@@ -2,14 +2,15 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject enemyPrefab;
+    [SerializeField] GameObject enemyPrefab1;
+    GameObject enemyPrefab2;
     [SerializeField] private float spawnInterval = 2f;
 
     private float spawnTimer = 0f;
 
     void Start()
     {
-
+        
     }
 
     void Update()
@@ -28,7 +29,7 @@ public class EnemySpawner : MonoBehaviour
     }
     void SpawnEnemy()
     {
-        Instantiate(enemyPrefab, transform.position, Quaternion.identity);
+        Instantiate(enemyPrefab1, transform.position, Quaternion.identity);
         spawnTimer = 0;
     }
 }

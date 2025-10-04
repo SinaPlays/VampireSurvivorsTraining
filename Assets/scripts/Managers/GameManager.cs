@@ -1,10 +1,15 @@
 using NUnit.Framework.Constraints;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
 
     public static GameManager instance;
+
+    public static List<EnemyToPlayer> activeEnemies = new List<EnemyToPlayer>();
+    public static List<EnemyToPlayer2> activeEnemies2 = new List<EnemyToPlayer2>();
+
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -15,6 +20,11 @@ public class GameManager : MonoBehaviour
         instance = this;
         Debug.Log("GameManager instance set.");
     }
+
+    CameraFollow cameraFollow;
+    PlayerMovement playerMovement;
+    GarlicWeapon garlicWeapon;
+    WhipWeapon whipWeapon;
     public enum GameState
     {
         MainMenu,
@@ -27,8 +37,10 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         currentState = GameState.MainMenu;
-
-
+        cameraFollow = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraFollow>();
+        playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
+        garlicWeapon = GameObject.FindFirstObjectByType<GarlicWeapon>();
+        whipWeapon = GameObject.FindFirstObjectByType<WhipWeapon>();
     }
 
     void Update()
@@ -42,45 +54,47 @@ public class GameManager : MonoBehaviour
                 }
                 break;
             case GameState.Playing:
-                FindFirstObjectByType<CameraFollow>().UpdateCamera();
-                FindFirstObjectByType<PlayerMovement>().UpdatePlayer();
-                FindAnyObjectByType<EnemyToPlayer>().UpdateEnemy();
-                FindAnyObjectByType<EnemyToPlayer2>().UpdateEnemy();
+
+                if (cameraFollow != null) {cameraFollow.UpdateCamera();}
+                if (playerMovement != null) {playerMovement.UpdatePlayer(); }
+                if (garlicWeapon != null) {garlicWeapon.UpdateGarlic(); }
+                if (whipWeapon != null) {whipWeapon.UpdateWhip(); }
+
+                for (int i = 0; i < activeEnemies.Count; i++)
+                {
+                    activeEnemies[i].UpdateEnemy();
+                }
+                for (int i = 0; i < activeEnemies2.Count; i++)
+                {
+                    activeEnemies2[i].UpdateEnemy();
+                }
+
                 if (Input.GetKeyDown(KeyCode.Escape))
                 {
                     ChangeState(GameState.Paused);
-                    Time.timeScale = 0;
                 }
                 break;
             case GameState.Paused:
                 if (Input.GetKeyDown(KeyCode.Escape))
                 {
                     ChangeState(GameState.Playing);
-                    Time.timeScale = 1;
                 }
                 break;
             case GameState.GameOver:
+                Debug.Log("Game Over! Press R to Restart.");
+                if (Input.GetKeyDown(KeyCode.R))
+                {
+                    UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+                }
 
                 break;
             case GameState.UpgradeMenu:
-                
+
                 break;
         }
     }
     public void ChangeState(GameState aState)
     {
-        switch (aState)
-        {
-            case GameState.MainMenu:
-                break;
-            case GameState.Playing:
-                break;
-            case GameState.Paused:
-                break;
-            case GameState.GameOver:
-                break;
-        }
-
         currentState = aState;
     }
 }

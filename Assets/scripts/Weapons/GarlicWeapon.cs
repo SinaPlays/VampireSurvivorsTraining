@@ -12,7 +12,7 @@ public class GarlicWeapon : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
     }
-    private void Update()
+    public void UpdateGarlic()
     {
         transform.position = player.transform.position;
     }
