@@ -1,5 +1,7 @@
 using System;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
 public class PlayerTakeDamage : MonoBehaviour
@@ -8,10 +10,20 @@ public class PlayerTakeDamage : MonoBehaviour
     [SerializeField] float Health;
     float damage;
     [SerializeField] float DamageMultiplier;
-    
+
+    [Header("UI")]
+    [SerializeField] Image HealthBar;
+    [SerializeField] TextMeshProUGUI HealthText;
+
+
     private void Start()
     {
         Health = maxHealth;
+    }
+    private void Update()
+    {
+        HealthText.text = Health.ToString() + " / " + maxHealth.ToString();
+        HealthBar.fillAmount = Health / maxHealth;
     }
     private void OnTriggerStay2D(Collider2D collision)
     {

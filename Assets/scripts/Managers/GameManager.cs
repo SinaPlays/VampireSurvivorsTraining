@@ -25,6 +25,9 @@ public class GameManager : MonoBehaviour
     PlayerMovement playerMovement;
     GarlicWeapon garlicWeapon;
     WhipWeapon whipWeapon;
+
+    [SerializeField] GameObject UpgradeUI;
+
     public enum GameState
     {
         MainMenu,
@@ -95,6 +98,7 @@ public class GameManager : MonoBehaviour
     }
     public void ChangeState(GameState aState)
     {
+        UpgradeUI.SetActive(aState == GameState.UpgradeMenu);
         currentState = aState;
     }
 }
