@@ -3,9 +3,6 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] CameraFollow CameraFollow;
-    [SerializeField] EnemyToPlayer EnemyToPlayer;
-
 
     public static GameManager instance;
     private void Awake()
@@ -30,6 +27,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         currentState = GameState.MainMenu;
+
+
     }
 
     void Update()
@@ -43,8 +42,10 @@ public class GameManager : MonoBehaviour
                 }
                 break;
             case GameState.Playing:
-                CameraFollow.UpdateCamera();
-                EnemyToPlayer.UpdateEnemy();
+                FindFirstObjectByType<CameraFollow>().UpdateCamera();
+                FindFirstObjectByType<PlayerMovement>().UpdatePlayer();
+                FindAnyObjectByType<EnemyToPlayer>().UpdateEnemy();
+                FindAnyObjectByType<EnemyToPlayer2>().UpdateEnemy();
                 if (Input.GetKeyDown(KeyCode.Escape))
                 {
                     ChangeState(GameState.Paused);

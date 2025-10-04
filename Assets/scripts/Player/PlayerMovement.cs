@@ -5,7 +5,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float Speed = 1f;
     Vector3 moveDirection;
 
-    void Update()
+    public void UpdatePlayer()
     {
         PlayerMove();
     }
