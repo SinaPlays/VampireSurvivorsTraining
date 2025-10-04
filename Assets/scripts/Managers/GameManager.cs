@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] CameraFollow CameraFollow;
 
     public static GameManager instance;
     private void Awake()
@@ -39,6 +40,7 @@ public class GameManager : MonoBehaviour
                 }
                 break;
             case GameState.Playing:
+                CameraFollow.UpdateCamera();
                 if (Input.GetKeyDown(KeyCode.Escape))
                 {
                     ChangeState(GameState.Paused);
