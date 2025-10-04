@@ -16,23 +16,18 @@ public class EnemyToPlayer2 : MonoBehaviour
     }
     private void Update()
     {
-        TeleportTimer();
+        Teleport();
     }
-    private void TeleportTimer()
+    private void Teleport()
     {
         teleportTimer += Time.deltaTime;
         if (teleportTimer >= TPcooldown)
         {
-            Teleport();
+            Vector3 playerPosition = player.transform.position;
+            Vector3 direction = (playerPosition - transform.position).normalized;
+            transform.position += direction * teleportDistance;
             teleportTimer = 0f;
         }
-
-    }
-    private void Teleport()
-    {
-        Vector3 playerPosition = player.transform.position;
-        Vector3 direction = (playerPosition - transform.position).normalized;
-
-        transform.position += direction * teleportDistance;
     }
 }
+
