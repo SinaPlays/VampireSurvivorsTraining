@@ -6,9 +6,11 @@ public class EnemyTakeDamage : MonoBehaviour
     [SerializeField] private float maxHealth = 5f;
     [SerializeField] private float Health;
 
+    PlayerExperience playerExperience;
     void Start()
     {
         Health = maxHealth;
+        playerExperience = FindFirstObjectByType<PlayerExperience>();
     }
     public void EnemyGetDamage(float SomeDamage)
     {
@@ -21,6 +23,7 @@ public class EnemyTakeDamage : MonoBehaviour
     }
     public void EnemyDie()
     {
+        playerExperience.GainXP(1);
         Destroy(gameObject);
     }
 }
