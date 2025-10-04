@@ -4,6 +4,8 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] CameraFollow CameraFollow;
+    [SerializeField] EnemyToPlayer EnemyToPlayer;
+
 
     public static GameManager instance;
     private void Awake()
@@ -14,6 +16,7 @@ public class GameManager : MonoBehaviour
             return;
         }
         instance = this;
+        Debug.Log("GameManager instance set.");
     }
     public enum GameState
     {
@@ -41,6 +44,7 @@ public class GameManager : MonoBehaviour
                 break;
             case GameState.Playing:
                 CameraFollow.UpdateCamera();
+                EnemyToPlayer.UpdateEnemy();
                 if (Input.GetKeyDown(KeyCode.Escape))
                 {
                     ChangeState(GameState.Paused);
