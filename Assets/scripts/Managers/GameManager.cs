@@ -28,11 +28,14 @@ public class GameManager : MonoBehaviour
     WhipWeapon whipWeapon;
 
     public GameObject UpgradeUI;
-    UpgradeUIscript upgradeUIscript;
+
+    public GameObject PauseUI;
+
+    public GameObject GameOverUI;
 
     public enum GameState
     {
-        MainMenu,
+        
         Playing,
         Paused,
         GameOver,
@@ -41,25 +44,17 @@ public class GameManager : MonoBehaviour
     public GameState currentState;
     void Start()
     {
-        currentState = GameState.MainMenu;
+        currentState = GameState.Playing;
         cameraFollow = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraFollow>();
         playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
         garlicWeapon = GameObject.FindFirstObjectByType<GarlicWeapon>();
         whipWeapon = GameObject.FindFirstObjectByType<WhipWeapon>();
-
-        upgradeUIscript = UpgradeUI.GetComponent<UpgradeUIscript>();
     }
 
     void Update()
     {
         switch (currentState)
         {
-            case GameState.MainMenu:
-                if (Input.GetKeyDown(KeyCode.P))
-                {
-                    ChangeState(GameState.Playing);
-                }
-                break;
             case GameState.Playing:
 
                 if (cameraFollow != null) {cameraFollow.UpdateCamera();}
@@ -88,7 +83,6 @@ public class GameManager : MonoBehaviour
                 }
                 break;
             case GameState.GameOver:
-                Debug.Log("Game Over! Press R to Restart.");
                 if (Input.GetKeyDown(KeyCode.R))
                 {
                     UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
@@ -96,13 +90,16 @@ public class GameManager : MonoBehaviour
 
                 break;
             case GameState.UpgradeMenu:
+
                 break;
         }
     }
     public void ChangeState(GameState aState)
     {
         UpgradeUI.SetActive(aState == GameState.UpgradeMenu);
-        
+        PauseUI.SetActive(aState == GameState.Paused);
+        GameOverUI.SetActive(aState == GameState.GameOver);
+
         currentState = aState;
     }
 }

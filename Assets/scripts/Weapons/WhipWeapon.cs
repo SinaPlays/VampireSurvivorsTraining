@@ -13,6 +13,8 @@ public class WhipWeapon : MonoBehaviour
     [SerializeField] float WhipDuration = 0.3f;
     [SerializeField] float WhipCooldown = 1;
 
+    public int whipStrength = 2;
+
 
     private void Start()
     {
@@ -29,7 +31,11 @@ public class WhipWeapon : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
-            collision.GetComponent<EnemyTakeDamage>().EnemyGetDamage(2);
+            if (GameManager.instance.currentState != GameManager.GameState.Playing)
+            {
+                return;
+            }
+            collision.GetComponent<EnemyTakeDamage>().EnemyGetDamage(whipStrength);
         }
     }
     private void WhipPositionSet()

@@ -20,6 +20,10 @@ public class GarlicWeapon : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
+            if (GameManager.instance.currentState != GameManager.GameState.Playing)
+            {
+                return;
+            }
             Damage = garlicStrength * Time.deltaTime;
             collision.GetComponent<EnemyTakeDamage>().EnemyGetDamage(Damage);
         }

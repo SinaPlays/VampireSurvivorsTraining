@@ -2,7 +2,6 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
 public class PlayerTakeDamage : MonoBehaviour
 {
@@ -33,6 +32,10 @@ public class PlayerTakeDamage : MonoBehaviour
     }
     void PlayerGetDamage(float SomeDamage)
     {
+        if (GameManager.instance.currentState != GameManager.GameState.Playing)
+        {
+            return;
+        }
         Health -= SomeDamage;
         if (Health <= 0)
         {

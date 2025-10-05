@@ -5,35 +5,24 @@ using static GameManager;
 
 public class UpgradeUIscript : MonoBehaviour
 {
-    [SerializeField] Button upgradeGarlic;
-    [SerializeField] Button upgradeWhip;
-    [SerializeField] Button upgradeMoveSpeed;
+    [SerializeField] GarlicWeapon garlicWeapon;
+    [SerializeField] WhipWeapon whipWeapon;
+    [SerializeField] PlayerMovement playerMovement;
 
-    GarlicWeapon garlicWeapon;
-    WhipWeapon whipWeapon;
-    PlayerMovement playerMovement;
-    void Start()
-    {
-        garlicWeapon = GameObject.FindFirstObjectByType<GarlicWeapon>();
-        whipWeapon = GameObject.FindFirstObjectByType<WhipWeapon>();
-        playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
-    }
-    public void OnButtonClick()
-    {
-        Debug.Log("Upgrade Garlic Button Clicked");
-        UpgradeGarlic();
-    }
     public void UpgradeGarlic()
     {
-        garlicWeapon.garlicStrength += 1;
+        garlicWeapon.garlicStrength += 1f;
         GameManager.instance.ChangeState(GameState.Playing);
+        Debug.Log("Garlic Upgraded");
     }
     public void UpgradeWhip()
     {
-
+        whipWeapon.whipStrength += 1;
+        GameManager.instance.ChangeState(GameState.Playing);
     }
     public void UpgradeMoveSpeed()
     {
-
+        playerMovement.Speed += 1;
+        GameManager.instance.ChangeState(GameState.Playing);
     }
 }
