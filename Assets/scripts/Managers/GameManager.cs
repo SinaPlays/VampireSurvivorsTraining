@@ -27,9 +27,8 @@ public class GameManager : MonoBehaviour
     GarlicWeapon garlicWeapon;
     WhipWeapon whipWeapon;
 
-    [SerializeField] GameObject UpgradeUI;
+    public GameObject UpgradeUI;
     UpgradeUIscript upgradeUIscript;
-    Button upgradeGarlic;
 
     public enum GameState
     {
@@ -48,7 +47,7 @@ public class GameManager : MonoBehaviour
         garlicWeapon = GameObject.FindFirstObjectByType<GarlicWeapon>();
         whipWeapon = GameObject.FindFirstObjectByType<WhipWeapon>();
 
-        upgradeGarlic = UpgradeUI.transform.Find("GarlicUpgradeButton").GetComponent<Button>();
+        upgradeUIscript = UpgradeUI.GetComponent<UpgradeUIscript>();
     }
 
     void Update()
@@ -97,7 +96,6 @@ public class GameManager : MonoBehaviour
 
                 break;
             case GameState.UpgradeMenu:
-
                 break;
         }
     }

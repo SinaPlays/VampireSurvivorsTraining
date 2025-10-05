@@ -20,13 +20,13 @@ public class UpgradeUIscript : MonoBehaviour
     }
     public void OnButtonClick()
     {
-        Debug.Log("Upgrade button clicked!");
-        GameManager.instance.currentState = GameState.Playing;
-        this.gameObject.SetActive(false);
+        Debug.Log("Upgrade Garlic Button Clicked");
+        UpgradeGarlic();
     }
     public void UpgradeGarlic()
     {
         garlicWeapon.garlicStrength += 1;
+        GameManager.instance.ChangeState(GameState.Playing);
     }
     public void UpgradeWhip()
     {
