@@ -1,6 +1,7 @@
 using NUnit.Framework.Constraints;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -27,6 +28,8 @@ public class GameManager : MonoBehaviour
     WhipWeapon whipWeapon;
 
     [SerializeField] GameObject UpgradeUI;
+    UpgradeUIscript upgradeUIscript;
+    Button upgradeGarlic;
 
     public enum GameState
     {
@@ -44,6 +47,8 @@ public class GameManager : MonoBehaviour
         playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
         garlicWeapon = GameObject.FindFirstObjectByType<GarlicWeapon>();
         whipWeapon = GameObject.FindFirstObjectByType<WhipWeapon>();
+
+        upgradeGarlic = UpgradeUI.transform.Find("GarlicUpgradeButton").GetComponent<Button>();
     }
 
     void Update()
@@ -99,6 +104,7 @@ public class GameManager : MonoBehaviour
     public void ChangeState(GameState aState)
     {
         UpgradeUI.SetActive(aState == GameState.UpgradeMenu);
+        
         currentState = aState;
     }
 }

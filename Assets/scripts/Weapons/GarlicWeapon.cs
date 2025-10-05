@@ -5,7 +5,7 @@ using UnityEngine;
 public class GarlicWeapon : MonoBehaviour
 {
     GameObject player;
-    [SerializeField] float garlicStrength = 1;
+    public float garlicStrength = 1;
     float Damage;
     
     private void Start()
