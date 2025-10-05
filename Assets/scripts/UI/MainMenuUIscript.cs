@@ -8,6 +8,21 @@ public class MainMenuUIscript : MonoBehaviour
     [SerializeField] GameObject settingsMenu;
 
     [SerializeField] TextMeshProUGUI vsyncText;
+    [SerializeField] TextMeshProUGUI fullScreenText;
+
+    private void Start()
+    {
+        if (Screen.fullScreen)
+        {
+            fullScreenText.text = "Fullscreen";
+        }
+        else
+        {
+            fullScreenText.text = "Windowed";
+        }
+
+    }
+
 
     public void LoadGameScene()
     {
@@ -28,19 +43,21 @@ public class MainMenuUIscript : MonoBehaviour
         Debug.Log("Quit");
         Application.Quit();
     }
-    public void EnableDesableVsync()
+    public void FullscreenOrWindowed()
     {
-        if (QualitySettings.vSyncCount == 0)
+        Screen.fullScreen = !Screen.fullScreen;
+
+        if (Screen.fullScreen)
         {
-            QualitySettings.vSyncCount = 1;
-            vsyncText.text = "VSync: On";
-            Debug.Log("VSync Enabled");
+            fullScreenText.text = "Fullscreen";
+            Debug.Log("Switched to Fullscreen");
         }
         else
         {
-            QualitySettings.vSyncCount = 0;
-            vsyncText.text = "VSync: Off";
-            Debug.Log("VSync Disabled");
+            fullScreenText.text = "Windowed";
+            Debug.Log("Switched to Windowed");
         }
     }
+
+
 }
