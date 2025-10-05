@@ -12,7 +12,7 @@ public class MainMenuUIscript : MonoBehaviour
 
     private void Start()
     {
-        if (Screen.fullScreen)
+        if (Screen.fullScreen == true)
         {
             fullScreenText.text = "Fullscreen";
         }
@@ -20,7 +20,6 @@ public class MainMenuUIscript : MonoBehaviour
         {
             fullScreenText.text = "Windowed";
         }
-
     }
 
 
@@ -45,19 +44,15 @@ public class MainMenuUIscript : MonoBehaviour
     }
     public void FullscreenOrWindowed()
     {
-        Screen.fullScreen = !Screen.fullScreen;
-
-        if (Screen.fullScreen)
+        if (Screen.fullScreen == true)
         {
-            fullScreenText.text = "Fullscreen";
-            Debug.Log("Switched to Fullscreen");
+            Screen.fullScreen = false;
+            fullScreenText.text = "Windowed";
         }
         else
         {
-            fullScreenText.text = "Windowed";
-            Debug.Log("Switched to Windowed");
+            Screen.fullScreen = true;
+            fullScreenText.text = "Fullscreen";
         }
     }
-
-
 }
