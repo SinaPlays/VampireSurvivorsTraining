@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
 
     public enum GameState
     {
-        
+
         Playing,
         Paused,
         GameOver,
@@ -57,10 +57,10 @@ public class GameManager : MonoBehaviour
         {
             case GameState.Playing:
 
-                if (cameraFollow != null) {cameraFollow.UpdateCamera();}
-                if (playerMovement != null) {playerMovement.UpdatePlayer(); }
-                if (garlicWeapon != null) {garlicWeapon.UpdateGarlic(); }
-                if (whipWeapon != null) {whipWeapon.UpdateWhip(); }
+                if (cameraFollow != null) { cameraFollow.UpdateCamera(); }
+                if (playerMovement != null) { playerMovement.UpdatePlayer(); }
+                if (garlicWeapon != null) { garlicWeapon.UpdateGarlic(); }
+                if (whipWeapon != null) { whipWeapon.UpdateWhip(); }
 
                 for (int i = 0; i < activeEnemies.Count; i++)
                 {
@@ -101,5 +101,26 @@ public class GameManager : MonoBehaviour
         GameOverUI.SetActive(aState == GameState.GameOver);
 
         currentState = aState;
+
+        if (aState == GameState.GameOver)
+        {
+            CheckForHighScore();
+        }
+    }
+
+    private int enemiesKilledThisSession = 0;
+
+    public void EnemyKilled()
+    {
+        enemiesKilledThisSession += 1;
+        Debug.Log("Enemies killed this session: " + enemiesKilledThisSession);
+    }
+    void CheckForHighScore()
+    {
+        int SavedHighScore = PlayerPrefs.GetInt("HighScore", 0);
+        if (enemiesKilledThisSession > SavedHighScore)
+        {
+            PlayerPrefs.SetInt("HighScore", enemiesKilledThisSession);
+        }
     }
 }

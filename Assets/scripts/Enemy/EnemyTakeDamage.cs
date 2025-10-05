@@ -23,6 +23,7 @@ public class EnemyTakeDamage : MonoBehaviour
     public void EnemyDie()
     {
         playerExperience.GainXP(1);
+        GameManager.instance.EnemyKilled();
         Destroy(gameObject);
     }
 }

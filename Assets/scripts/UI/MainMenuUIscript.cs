@@ -10,8 +10,14 @@ public class MainMenuUIscript : MonoBehaviour
     [SerializeField] TextMeshProUGUI vsyncText;
     [SerializeField] TextMeshProUGUI fullScreenText;
 
+    [SerializeField] TextMeshProUGUI highScoreText;
+
+
     private void Start()
     {
+        int highScore = PlayerPrefs.GetInt("HighScore", 0);
+        highScoreText.text = "High Score: " + highScore.ToString();
+
         if (Screen.fullScreen == true)
         {
             fullScreenText.text = "Fullscreen";
