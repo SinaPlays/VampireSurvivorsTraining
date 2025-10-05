@@ -20,6 +20,15 @@ public class MainMenuUIscript : MonoBehaviour
         {
             fullScreenText.text = "Windowed";
         }
+
+        if (QualitySettings.vSyncCount == 0)
+        {
+            vsyncText.text = "VSync: Off";
+        }
+        else
+        {
+            vsyncText.text = "VSync: On";
+        }
     }
 
 
@@ -41,6 +50,19 @@ public class MainMenuUIscript : MonoBehaviour
     {
         Debug.Log("Quit");
         Application.Quit();
+    }
+    public void VSyncOnOrOff()
+    {
+        if (QualitySettings.vSyncCount == 0)
+        {
+            QualitySettings.vSyncCount = 1;
+            vsyncText.text = "VSync: On";
+        }
+        else
+        {
+            QualitySettings.vSyncCount = 0;
+            vsyncText.text = "VSync: Off";
+        }
     }
     public void FullscreenOrWindowed()
     {
