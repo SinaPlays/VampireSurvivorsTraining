@@ -106,6 +106,10 @@ public class GameManager : MonoBehaviour
         {
             CheckForHighScore();
         }
+        if (aState == GameState.Playing)
+        {
+            AudioManager.instance.PlaySoundEffect(AudioManager.instance.gameMusic);
+        }
     }
 
     private int enemiesKilledThisSession = 0;

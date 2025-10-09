@@ -13,8 +13,10 @@ public class MainMenuUIscript : MonoBehaviour
     [SerializeField] TextMeshProUGUI highScoreText;
 
 
+
     private void Start()
     {
+        AudioManager.instance.PlaySoundEffect(mainMenuMusic);
         int highScore = PlayerPrefs.GetInt("HighScore", 0);
         highScoreText.text = "High Score: " + highScore.ToString();
 

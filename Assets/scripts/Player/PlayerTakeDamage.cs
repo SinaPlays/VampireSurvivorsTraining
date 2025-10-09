@@ -44,6 +44,7 @@ public class PlayerTakeDamage : MonoBehaviour
     }
     void PlayerDie()
     {
+        AudioManager.instance.PlaySoundEffect(AudioManager.instance.gameOverMusic);
         GameManager.instance.ChangeState(GameManager.GameState.GameOver);
         gameObject.SetActive(false);
     }
