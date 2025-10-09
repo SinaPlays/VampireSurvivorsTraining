@@ -1,6 +1,10 @@
+using System;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
+using static UnityEngine.Rendering.DebugUI;
 
 public class MainMenuUIscript : MonoBehaviour
 {
@@ -11,12 +15,18 @@ public class MainMenuUIscript : MonoBehaviour
     [SerializeField] TextMeshProUGUI fullScreenText;
 
     [SerializeField] TextMeshProUGUI highScoreText;
+    [SerializeField] private AudioClip mainMenuMusic;
 
-
+    [SerializeField] private AudioMixer audioMixer;
+    [SerializeField] private Slider volumeSlider;
 
     private void Start()
     {
-        AudioManager.instance.PlaySoundEffect(mainMenuMusic);
+        if (AudioManager.instance != null)
+        {
+            AudioManager.instance.PlayMusic(mainMenuMusic);
+            DontDestroyOnLoad(AudioManager.instance);
+        }
         int highScore = PlayerPrefs.GetInt("HighScore", 0);
         highScoreText.text = "High Score: " + highScore.ToString();
 
@@ -37,11 +47,14 @@ public class MainMenuUIscript : MonoBehaviour
         {
             vsyncText.text = "VSync: On";
         }
+        float savedVolume = PlayerPrefs.GetFloat("MasterVolume", 0.75f);
+        volumeSlider.value = savedVolume;
     }
 
 
     public void LoadGameScene()
     {
+
         UnityEngine.SceneManagement.SceneManager.LoadScene("GameScene");
     }
     public void OpenSettings()
@@ -84,5 +97,10 @@ public class MainMenuUIscript : MonoBehaviour
             Screen.fullScreen = true;
             fullScreenText.text = "Fullscreen";
         }
+    }
+    public void OnChangeAudio(Single volume)
+    {
+        audioMixer.SetFloat("MasterVolume", Mathf.Log10(volume) * 20);
+        PlayerPrefs.SetFloat("MasterVolume", volume);
     }
 }

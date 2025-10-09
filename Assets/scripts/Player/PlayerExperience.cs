@@ -12,6 +12,7 @@ public class PlayerExperience : MonoBehaviour
     [SerializeField] Image XPBar;
     [SerializeField] TextMeshProUGUI XPText;
 
+
     private void Update()
     {
         XPText.text = CurrentXP.ToString() + " / " + XPToNextLevel.ToString();
@@ -24,14 +25,15 @@ public class PlayerExperience : MonoBehaviour
         {
             LevelUp();
         }
-            
+
     }
     void LevelUp()
     {
-            PlayerLevel++;
-            CurrentXP = 0;
-            XPToNextLevel *= 1.1f;
-            GameManager.instance.ChangeState(GameManager.GameState.UpgradeMenu);
+        PlayerLevel++;
+        CurrentXP = 0;
+        XPToNextLevel *= 1.1f;
+        AudioManager.instance.PlaySFX(ESoundFX.PlayerLevelUp);
+        GameManager.instance.ChangeState(GameManager.GameState.UpgradeMenu);
     }
 
 }

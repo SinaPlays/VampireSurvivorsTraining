@@ -56,6 +56,7 @@ public class WhipWeapon : MonoBehaviour
                 sprite.enabled = true;
             }
             WhipCollider.enabled = true;
+            AudioManager.instance.PlaySFX(ESoundFX.WhipAttack);
         }
 
         if (WhipTimer >= WhipDuration)

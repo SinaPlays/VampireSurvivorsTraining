@@ -37,6 +37,7 @@ public class PlayerTakeDamage : MonoBehaviour
             return;
         }
         Health -= SomeDamage;
+        AudioManager.instance.PlaySFX(ESoundFX.EnemyAttack);
         if (Health <= 0)
         {
             PlayerDie();
@@ -44,7 +45,7 @@ public class PlayerTakeDamage : MonoBehaviour
     }
     void PlayerDie()
     {
-        AudioManager.instance.PlaySoundEffect(AudioManager.instance.gameOverMusic);
+        AudioManager.instance.PlayMusic(AudioManager.instance.gameOverMusic);
         GameManager.instance.ChangeState(GameManager.GameState.GameOver);
         gameObject.SetActive(false);
     }

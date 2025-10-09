@@ -23,6 +23,7 @@ public class EnemyTakeDamage : MonoBehaviour
     public void EnemyDie()
     {
         playerExperience.GainXP(1);
+        AudioManager.instance.PlaySFX(ESoundFX.EnemyDeath);
         GameManager.instance.EnemyKilled();
         Destroy(gameObject);
     }

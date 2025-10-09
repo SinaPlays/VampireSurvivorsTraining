@@ -26,6 +26,7 @@ public class GarlicWeapon : MonoBehaviour
             }
             Damage = garlicStrength * Time.deltaTime;
             collision.GetComponent<EnemyTakeDamage>().EnemyGetDamage(Damage);
+            AudioManager.instance.PlaySFX(ESoundFX.GarlicAttack);
         }
     }
 }

@@ -44,6 +44,7 @@ public class GameManager : MonoBehaviour
     public GameState currentState;
     void Start()
     {
+        AudioManager.instance.PlayMusic(AudioManager.instance.gameMusic);
         currentState = GameState.Playing;
         cameraFollow = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraFollow>();
         playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
@@ -104,11 +105,12 @@ public class GameManager : MonoBehaviour
 
         if (aState == GameState.GameOver)
         {
+            AudioManager.instance.PlayMusic(AudioManager.instance.gameOverMusic);
             CheckForHighScore();
         }
         if (aState == GameState.Playing)
         {
-            AudioManager.instance.PlaySoundEffect(AudioManager.instance.gameMusic);
+            
         }
     }
 

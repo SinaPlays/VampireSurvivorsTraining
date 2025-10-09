@@ -1,24 +1,42 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
+public enum ESoundFX
+{
+    PlayerLevelUp,
+    WhipAttack,
+    GarlicAttack,
+    EnemyDeath,
+    EnemyAttack,
+}
 
+[Serializable]
+public struct SoundInstance
+{
+    public ESoundFX effect;
+    [SerializeField] private AudioClip clip;
+    [SerializeField] private AudioSource source;
+
+    public void PlaySound()
+    {
+        source.clip = clip;
+        source.Play();
+    }
+}
 public class AudioManager : MonoBehaviour
 {
+
+
     public static AudioManager instance;
 
     [SerializeField] private AudioSource musicSource;
-    [SerializeField] private AudioSource sfxSource;
+    [SerializeField] private List<SoundInstance> soundInstances = new();
 
-    [Header("Music Clips")]
-    [SerializeField] public AudioClip mainMenuMusic;
-    [SerializeField] public AudioClip gameMusic;
-    [SerializeField] public AudioClip gameOverMusic;
 
-    [Header("Sound Effects")]
-    [SerializeField] public AudioClip enemyAttack;
-    [SerializeField] public AudioClip enemyDying;
-    [SerializeField] public AudioClip garlic;
-    [SerializeField] public AudioClip whip;
-    [SerializeField] public AudioClip levelUp;
-
+    [Header("Music")]
+    public AudioClip mainMenuMusic;
+    public AudioClip gameMusic;
+    public AudioClip gameOverMusic;
     private void Awake()
     {
         if (instance == null)
@@ -31,12 +49,27 @@ public class AudioManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-    public void PlaySoundEffect(AudioClip clip)
+    public void PlayMusic(AudioClip clip)
     {
-        sfxSource.PlayOneShot(clip);
-    }
+        if (musicSource.clip == clip && musicSource.isPlaying)
+            return;
 
+        musicSource.clip = clip;
+        musicSource.Play();
+    }
+    public void PlaySFX(ESoundFX eSound)
+    {
+        foreach (SoundInstance instance in soundInstances)
+        {
+            if (instance.effect == eSound)
+            {
+                instance.PlaySound();
+                return;
+            }
+        }
+
+        throw new Exception("Sound FX Not Found");
+    }
     public void ChangeMasterVolume(float value)
     {
         AudioListener.volume = value;
