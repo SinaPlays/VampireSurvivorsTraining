@@ -11,6 +11,7 @@ public class EnemySpawner : MonoBehaviour
     private int timeMultiplier = 0;
     public static float healthMultiplier = 1f;
 
+    [SerializeField] private Transform player;
     void Update()
     {
         gameTimer += Time.deltaTime;
@@ -30,20 +31,21 @@ public class EnemySpawner : MonoBehaviour
 
     void SpawnEnemy()
     {
+        Vector3 spawnPosition = GetRandomSpawnPosition();
         if (gameTimer < 20)
         {
-            Instantiate(enemyPrefab1, transform.position, Quaternion.identity);
+            Instantiate(enemyPrefab1, spawnPosition, Quaternion.identity);
         }
         else
         {
             int randomEnemy = Random.Range(0, 2);
             if (randomEnemy == 0)
             {
-                Instantiate(enemyPrefab1, transform.position, Quaternion.identity);
+                Instantiate(enemyPrefab1, spawnPosition, Quaternion.identity);
             }
             else
             {
-                Instantiate(enemyPrefab2, transform.position, Quaternion.identity);
+                Instantiate(enemyPrefab2, spawnPosition, Quaternion.identity);
             }
         }
         spawnTimer = 0;
@@ -53,5 +55,36 @@ public class EnemySpawner : MonoBehaviour
     {
         spawnInterval *= 0.95f;
         healthMultiplier *= 1.05f;
+    }
+
+    private Vector3 GetRandomSpawnPosition()
+    {
+        float x = 0;
+        float y = 0;
+
+        int side = Random.Range(0, 4);
+
+        if (side == 0) // Top
+        {
+            x = Random.Range(player.position.x - 11f, player.position.x + 11f);
+            y = player.position.y + 6f;
+        }
+        else if (side == 1) // Bottom
+        {
+            x = Random.Range(player.position.x - 11f, player.position.x + 11f);
+            y = player.position.y - 6f;
+        }
+        else if (side == 2) // Right
+        {
+            x = player.position.x + 12f;
+            y = Random.Range(player.position.y - 6f, player.position.y + 6f);
+        }
+        else // Left
+        {
+            x = player.position.x - 12f;
+            y = Random.Range(player.position.y - 6f, player.position.y + 6f);
+        }
+
+        return new Vector3(x, y, 0);
     }
 }
