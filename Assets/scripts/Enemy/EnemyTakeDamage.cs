@@ -9,8 +9,8 @@ public class EnemyTakeDamage : MonoBehaviour
     PlayerExperience playerExperience;
     void Start()
     {
-        Health = maxHealth;
-        playerExperience = FindFirstObjectByType<PlayerExperience>();
+        Health = maxHealth * EnemySpawner.healthMultiplier;
+        playerExperience = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerExperience>();
     }
     public void EnemyGetDamage(float SomeDamage)
     {

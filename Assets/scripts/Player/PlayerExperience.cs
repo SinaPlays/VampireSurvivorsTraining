@@ -12,6 +12,12 @@ public class PlayerExperience : MonoBehaviour
     [SerializeField] Image XPBar;
     [SerializeField] TextMeshProUGUI XPText;
 
+    private EnemySpawner enemySpawner;
+
+    void Start()
+    {
+        enemySpawner = FindFirstObjectByType<EnemySpawner>();
+    }
 
     private void Update()
     {
@@ -32,6 +38,7 @@ public class PlayerExperience : MonoBehaviour
         PlayerLevel++;
         CurrentXP = 0;
         XPToNextLevel *= 1.1f;
+        enemySpawner.IncreaseDifficulty();
         AudioManager.instance.PlaySFX(ESoundFX.PlayerLevelUp);
         GameManager.instance.ChangeState(GameManager.GameState.UpgradeMenu);
     }
