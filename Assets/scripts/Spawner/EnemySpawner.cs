@@ -12,7 +12,7 @@ public class EnemySpawner : MonoBehaviour
     public static float healthMultiplier = 1f;
 
     [SerializeField] private Transform player;
-    void Update()
+    public void UpdateSpawner()
     {
         gameTimer += Time.deltaTime;
         spawnTimer += Time.deltaTime;
