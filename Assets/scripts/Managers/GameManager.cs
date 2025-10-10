@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     PlayerMovement playerMovement;
     GarlicWeapon garlicWeapon;
     WhipWeapon whipWeapon;
+    EnemySpawner enemySpawner;
 
     public GameObject UpgradeUI;
 
@@ -50,6 +51,7 @@ public class GameManager : MonoBehaviour
         playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
         garlicWeapon = GameObject.FindFirstObjectByType<GarlicWeapon>();
         whipWeapon = GameObject.FindFirstObjectByType<WhipWeapon>();
+        enemySpawner = GameObject.FindFirstObjectByType<EnemySpawner>();
     }
 
     void Update()
@@ -62,6 +64,7 @@ public class GameManager : MonoBehaviour
                 if (playerMovement != null) { playerMovement.UpdatePlayer(); }
                 if (garlicWeapon != null) { garlicWeapon.UpdateGarlic(); }
                 if (whipWeapon != null) { whipWeapon.UpdateWhip(); }
+                if (enemySpawner != null) { enemySpawner.UpdateSpawner(); }
 
                 for (int i = 0; i < activeEnemies.Count; i++)
                 {
