@@ -5,6 +5,7 @@ public class EnemyTakeDamage : MonoBehaviour
     [SerializeField] private float maxHealth = 5f;
     [SerializeField] private float Health;
 
+    [SerializeField] private GameObject deathEffect;
     PlayerExperience playerExperience;
     void Start()
     {
@@ -22,6 +23,7 @@ public class EnemyTakeDamage : MonoBehaviour
     }
     public void EnemyDie()
     {
+        Instantiate(deathEffect, transform.position, Quaternion.identity);
         playerExperience.GainXP(1);
         AudioManager.instance.PlaySFX(ESoundFX.EnemyDeath);
         GameManager.instance.EnemyKilled();
