@@ -12,8 +12,4 @@ public class PauseMenuUIscript : MonoBehaviour
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
     }
-    public void PressR()
-    {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("GameScene");
-    }
 }
